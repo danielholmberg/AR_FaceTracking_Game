@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Feb 11 14:51:56 CET 2020
+#Mon Mar 02 18:08:02 CET 2020
 60.set=NATIVE_RESOURCE
 52.set=ASSET
 53.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/merged_assets/release/out
