@@ -23,7 +23,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature
         android:name="android.hardware.touchscreen"
@@ -79,7 +78,7 @@
             android:value="portrait|landscape" />
         <meta-data
             android:name="unity.build-id"
-            android:value="156c1eea-ca6a-4d96-bcd3-bea8c1b4340a" /> <!-- The minimal version code of ARCore APK required for an app using this SDK. -->
+            android:value="644aec27-11f6-48d3-b127-6146a839f8cd" /> <!-- The minimal version code of ARCore APK required for an app using this SDK. -->
         <meta-data
             android:name="com.google.ar.core.min_apk_version"
             android:value="191106000" /> <!-- This activity is critical for installing ARCore when it is not already present. -->
