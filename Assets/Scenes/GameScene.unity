@@ -680,8 +680,12 @@ MonoBehaviour:
   countDownController: {fileID: 1120846841}
   bulletPrefab: {fileID: 8880642140703002586, guid: f6e3f2e9aca1544a48debf279c332fd1,
     type: 3}
-  respawnTime: 1
+  bombPrefab: {fileID: 3488488082227849093, guid: b5c4ccdf0b1b44be8a1257004ed6f6a8,
+    type: 3}
+  respawnBulletTime: 1
+  respawnBombTime: 4
   shouldSpawnBullets: 0
+  shouldSpawnBombs: 0
   restartDelay: 1
   health: 5
   hearts:

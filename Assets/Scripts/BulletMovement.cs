@@ -19,7 +19,7 @@ public class BulletMovement : MonoBehaviour
         playerObject = FindObjectOfType<PlayerFaceGameObject>();
 
         rb = this.GetComponent<Rigidbody>();
-        rb.transform.position = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), 0);
+        rb.transform.position = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), -0.2f);
         rb.velocity = new Vector3(0, 0, speed * Time.deltaTime);
     }
 

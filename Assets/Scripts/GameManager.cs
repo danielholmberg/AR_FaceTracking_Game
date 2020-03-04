@@ -10,8 +10,12 @@ public class GameManager : MonoBehaviour
     public CountDownController countDownController;
 
     public GameObject bulletPrefab;
-    public float respawnTime = 1f;
+    public GameObject bombPrefab;
+    public float respawnBulletTime = 1f;
+    public float respawnBombTime = 4f;
     public bool shouldSpawnBullets = false;
+    public bool shouldSpawnBombs = false;
+    public bool incomingBomb = false;
 
     public float restartDelay = 1f;
     bool gameHasEnded = false;
@@ -45,6 +49,7 @@ public class GameManager : MonoBehaviour
     {
         gameHasEnded = false;
         shouldSpawnBullets = true;
+        shouldSpawnBombs = true;
         StartCoroutine(countDownController.CountDownToStart());
     }
     public void EndGame() 
@@ -66,11 +71,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
-    private void ShowGameOverMenu()
-    {
-        
-    }
-
     // Helper functions
     private void SpawnBullet() 
     {
@@ -80,8 +80,24 @@ public class GameManager : MonoBehaviour
     public IEnumerator LaunchBulletWave() 
     {
         while(shouldSpawnBullets) {
-            yield return new WaitForSeconds(respawnTime);
-            SpawnBullet();
+            yield return new WaitForSeconds(respawnBulletTime);
+            if(!incomingBomb) {
+                SpawnBullet();
+            }
+        }
+    }
+
+    private void SpawnBomb() 
+    {
+        GameObject a = Instantiate(bombPrefab) as GameObject;
+        incomingBomb = true;
+    }
+
+    public IEnumerator LaunchBombWave() 
+    {
+        while(shouldSpawnBombs) {
+            yield return new WaitForSeconds(respawnBombTime);
+            SpawnBomb();
         }
     }
 }

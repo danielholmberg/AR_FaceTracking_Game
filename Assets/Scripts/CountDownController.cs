@@ -24,5 +24,6 @@ public class CountDownController : MonoBehaviour
         countDownText.gameObject.SetActive(false);
 
         StartCoroutine(FindObjectOfType<GameManager>().LaunchBulletWave());
+        StartCoroutine(FindObjectOfType<GameManager>().LaunchBombWave());
     }
 }

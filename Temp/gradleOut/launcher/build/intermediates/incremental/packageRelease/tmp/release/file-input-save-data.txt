@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Mar 03 23:56:40 CET 2020
+#Wed Mar 04 14:13:26 CET 2020
 60.set=NATIVE_RESOURCE
 52.set=ASSET
 118.baseType=DIRECTORY
@@ -47,7 +47,7 @@
 36.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/transforms/mergeJniLibs/release/0
 97.set=NATIVE_RESOURCE
 83.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/transforms/mergeJniLibs/release/0
-89.set=ASSET
+89.set=NATIVE_RESOURCE
 95.baseType=DIRECTORY
 58.baseType=DIRECTORY
 114.path=bin/Data/Managed/System.Xml.Linq.dll
@@ -79,7 +79,7 @@
 44.baseType=DIRECTORY
 18.set=ASSET
 96.set=DEX
-88.set=NATIVE_RESOURCE
+88.set=ASSET
 12.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/merged_assets/release/out
 2.path=bin/Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll
 46.path=lib/x86/libarpresto_api.so
@@ -117,7 +117,7 @@
 82.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/merged_assets/release/out
 79.set=ASSET
 60.baseType=DIRECTORY
-89.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/merged_assets/release/out
+89.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/transforms/mergeJniLibs/release/0
 113.path=bin/Data/unity default resources
 22.path=bin/Data/Managed/UnityEngine.ClothModule.dll
 29.path=lib/arm64-v8a/libarcore_sdk_c.so
@@ -185,7 +185,7 @@
 68.path=lib/arm64-v8a/libarcore_rendering_utils_api.so
 81.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/merged_assets/release/out
 69.set=ASSET
-88.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/transforms/mergeJniLibs/release/0
+88.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/merged_assets/release/out
 4.baseType=DIRECTORY
 112.path=lib/arm64-v8a/libarcore_unity_api.so
 21.path=bin/Data/Managed/com.unity.multiplayer-hlapi.Runtime.dll
@@ -204,7 +204,7 @@
 0.baseType=DIRECTORY
 97.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/transforms/mergeJniLibs/release/0
 85.baseType=DIRECTORY
-89.path=bin/Data/sharedassets1.resource
+89.path=lib/x86/libarcore_sdk_c.so
 30.set=NATIVE_RESOURCE
 22.set=ASSET
 50.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/merged_assets/release/out
@@ -277,7 +277,7 @@
 90.baseType=DIRECTORY
 96.base=/Users/danielholmberg/Development/School/TDDD57/AR FaceTracking Game/Temp/gradleOut/launcher/build/intermediates/transforms/dexMerger/release/0
 50.baseType=DIRECTORY
-88.path=lib/x86/libarcore_sdk_c.so
+88.path=bin/Data/sharedassets1.resource
 20.set=ASSET
 12.set=ASSET
 90.set=ASSET

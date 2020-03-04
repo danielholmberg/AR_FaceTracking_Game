@@ -6,21 +6,24 @@ public class PlayerFaceGameObject : MonoBehaviour
 {
     bool isToClose;
     private GameManager gameManager;
+    public float toCloseDistance = 0.3f;
+    private Color originalColor;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        isToClose = (transform.position.z < 0.4f);
+        isToClose = (transform.position.z < toCloseDistance);
+        originalColor = gameObject.GetComponent<Renderer>().material.color;
     }
 
     void Update()
     {
-        isToClose = (transform.position.z < 0.4f);
-        if(transform.position.z < 0.4f) 
+        isToClose = (transform.position.z < toCloseDistance);
+        if(isToClose) 
         {
             gameObject.GetComponent<Renderer>().material.color = Color.red;
         } else {
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
+            gameObject.GetComponent<Renderer>().material.color = originalColor;
         }
     }
 
@@ -47,6 +50,10 @@ public class PlayerFaceGameObject : MonoBehaviour
             other.gameObject.GetComponent<BulletMovement>().collided = true;
 
             Destroy(other.gameObject, 1.0f);
+        } 
+        else if(other.gameObject.CompareTag("Bomb")) 
+        {
+            other.gameObject.GetComponent<BombMovement>().collided = true;
         }
     }
 }
