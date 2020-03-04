@@ -77,7 +77,7 @@
             android:value="portrait|landscape" />
         <meta-data
             android:name="unity.build-id"
-            android:value="fc4613b2-7a1c-4986-8103-aba09a316a43" /> <!-- The minimal version code of ARCore APK required for an app using this SDK. -->
+            android:value="3f02abaa-ba4e-497b-809c-6b0240e774bd" /> <!-- The minimal version code of ARCore APK required for an app using this SDK. -->
         <meta-data
             android:name="com.google.ar.core.min_apk_version"
             android:value="191106000" /> <!-- This activity is critical for installing ARCore when it is not already present. -->
