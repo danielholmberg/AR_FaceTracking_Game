@@ -56,7 +56,7 @@ public class PlayerFaceGameObject : MonoBehaviour
             tempColor.a = pointAlpha;
             targetRenderer.material.color = tempColor;
 
-            StartCoroutine(collidedObject.DelayedRemove(0.5f));
+            StartCoroutine(collidedObject.DelayedRemove(1f));
         } 
         else if(other.gameObject.CompareTag("TwoPoint")) 
         {
@@ -81,7 +81,7 @@ public class PlayerFaceGameObject : MonoBehaviour
             tempColor.a = pointAlpha;
             targetRenderer.material.color = tempColor;
 
-            StartCoroutine(collidedObject.DelayedRemove(0.5f));
+            StartCoroutine(collidedObject.DelayedRemove(1f));
         }
         else if(other.gameObject.CompareTag("FivePoint")) 
         {
@@ -106,7 +106,7 @@ public class PlayerFaceGameObject : MonoBehaviour
             tempColor.a = pointAlpha;
             targetRenderer.material.color = tempColor;
 
-            StartCoroutine(collidedObject.DelayedRemove(0.5f));
+            StartCoroutine(collidedObject.DelayedRemove(1f));
         }
         else if(other.gameObject.CompareTag("Bomb")) 
         {

@@ -8,6 +8,7 @@ TagManager:
   - OnePoint
   - TwoPoint
   - FivePoint
+  - GameManager
   layers:
   - Default
   - TransparentFX

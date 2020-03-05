@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public CountDownController countDownController;
     public float restartDelay = 1f;
     bool gameHasEnded = false;
-    ObjectPooler objectPooler;
+    public ObjectPooler objectPooler;
     BackgroundAudio backgroundAudio;
 
     // Points
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject bombPrefab;
     public float respawnBombTime = 10f;
     public bool shouldSpawnBombs = false;
-    public bool incomingBomb = false;
+    public static bool incomingBomb = false;
 
     // Health
     public int health = 5;
@@ -163,7 +163,6 @@ public class GameManager : MonoBehaviour
     private void SpawnBomb() 
     {
         objectPooler.SpawnFromPool("Bomb");
-        incomingBomb = true;
     }
 
     private IEnumerator LaunchBombWave() 

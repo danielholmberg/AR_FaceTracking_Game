@@ -322,10 +322,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4585136311290753864}
   renderer: {fileID: 3488488082229786949}
+  collider: {fileID: 3401524974611450603}
   speed: 5
   collided: 0
   explosionPrefab: {fileID: 330889948132724157, guid: 8f5e03af5b7cf4b57932bf6186bd15cb,
     type: 3}
+  originalMaterial: {fileID: 2100000, guid: 4e5129629661c4d9490d56ed456ce296, type: 2}
 --- !u!54 &4585136311290753864
 Rigidbody:
   m_ObjectHideFlags: 0

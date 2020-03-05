@@ -52,6 +52,10 @@ public class ObjectPooler : MonoBehaviour
             return null;
         }
 
+        if(poolDictionary[tag].Count == 0) {
+            GrowQueue(tag);
+        }
+
         GameObject objectToSpawn = poolDictionary[tag].Dequeue();
         objectToSpawn.SetActive(true);
 
@@ -63,8 +67,24 @@ public class ObjectPooler : MonoBehaviour
             pooledObj.OnObjectSpawn(); 
         }
 
-        poolDictionary[tag].Enqueue(objectToSpawn);
-
         return objectToSpawn;
+    }
+
+    private void GrowQueue(string tag)
+    {
+        foreach(Pool pool in pools) {
+            if(pool.tag == tag) {
+                GameObject obj = Instantiate(pool.prefab);
+                obj.SetActive(false);
+                poolDictionary[tag].Enqueue(obj);
+                return;
+            }
+        }
+    }
+
+    public void AddToPool(string tag, GameObject instance) 
+    {
+        instance.SetActive(false);
+        poolDictionary[tag].Enqueue(instance);
     }
 }

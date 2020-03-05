@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 259715470}
   m_Layer: 0
   m_Name: PlayerFaceGameObject
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -649,7 +649,7 @@ GameObject:
   - component: {fileID: 321281509}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -682,6 +682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countDownController: {fileID: 1120846841}
   restartDelay: 1
+  objectPooler: {fileID: 0}
   onePointPrefab: {fileID: 8880642140703002586, guid: f6e3f2e9aca1544a48debf279c332fd1,
     type: 3}
   twoPointPrefab: {fileID: 8880642140703002586, guid: c0763de623c614558aa7281184f7b5d0,

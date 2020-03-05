@@ -297,6 +297,7 @@ MonoBehaviour:
   renderer: {fileID: 8880642141529345139}
   speed: 5
   collided: 0
+  originalMaterial: {fileID: 2100000, guid: b3d97cc539d56436c9268a6d97aec7f1, type: 2}
 --- !u!82 &6640000867862463649
 AudioSource:
   m_ObjectHideFlags: 0

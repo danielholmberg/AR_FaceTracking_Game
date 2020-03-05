@@ -11,6 +11,7 @@ public class OnePoint : MonoBehaviour, IPooledObject
     public bool collided = false;
     private GameManager gameManager;
     private Rigidbody playerRigidbody;
+    public Material originalMaterial;
 
     void Start() {
         gameManager = FindObjectOfType<GameManager>();
@@ -23,6 +24,8 @@ public class OnePoint : MonoBehaviour, IPooledObject
     public void OnObjectSpawn()
     {
         Debug.Log("OnObjectSpawn OnePoint");
+        collided = false;
+        renderer.material = originalMaterial;
         rb.transform.position = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), -0.2f);
         rb.velocity = new Vector3(0, 0, speed * Time.deltaTime);
         rb.angularVelocity = rb.transform.up * speed;
@@ -40,6 +43,6 @@ public class OnePoint : MonoBehaviour, IPooledObject
     public IEnumerator DelayedRemove(float delay) 
     {
         yield return new WaitForSeconds(delay);
-        gameObject.SetActive(false);
+        gameManager.objectPooler.AddToPool("OnePoint", gameObject.transform.parent.gameObject);
     }
 }

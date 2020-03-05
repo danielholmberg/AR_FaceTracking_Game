@@ -6,12 +6,13 @@ public class Bomb : MonoBehaviour, IPooledObject
 {
     public Rigidbody rb;
     public Renderer renderer;
-    public Collider collider;
+    public MeshCollider collider;
     public float speed;
     public bool collided = false;
     public GameObject explosionPrefab;
     private GameManager gameManager;
     private Rigidbody playerRigidbody;
+    public Material originalMaterial;
 
     void Start() {
         gameManager = FindObjectOfType<GameManager>();
@@ -19,12 +20,16 @@ public class Bomb : MonoBehaviour, IPooledObject
         playerRigidbody = playerObject.GetComponent<Rigidbody>();
         rb = this.gameObject.GetComponent<Rigidbody>();
         renderer = this.gameObject.GetComponent<Renderer>();
-        collider = this.gameObject.GetComponent<Collider>();
+        collider = this.gameObject.GetComponent<MeshCollider>();
     }
 
     public void OnObjectSpawn()
     {
         Debug.Log("OnObjectSpawn BombPoint");
+        collided = false;
+        renderer.material = originalMaterial;
+        collider.enabled = true;
+        GameManager.incomingBomb = true;
         rb.transform.position = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), -0.2f);
         rb.velocity = new Vector3(0, 0, speed * Time.deltaTime);
         rb.angularVelocity = rb.transform.up * speed;
@@ -35,14 +40,14 @@ public class Bomb : MonoBehaviour, IPooledObject
     {
         if(collided) {
             gameManager.health--;
-            gameManager.incomingBomb = false;
-            gameObject.SetActive(false);
+            GameManager.incomingBomb = false;
+            gameManager.objectPooler.AddToPool("Bomb", gameObject.transform.parent.gameObject);
             GameObject a = Instantiate(explosionPrefab) as GameObject;
             a.transform.position = transform.position;
         } else if(transform.position.z > playerRigidbody.transform.position.z) {
             collider.enabled = false;
             renderer.material.color = Color.green;
-            gameManager.incomingBomb = false;
+            GameManager.incomingBomb = false;
 
             if(transform.position.z > playerRigidbody.transform.position.z + 0.5f) {
                 StartCoroutine(DelayedRemove(1f));
@@ -53,6 +58,6 @@ public class Bomb : MonoBehaviour, IPooledObject
     public IEnumerator DelayedRemove(float delay) 
     {
         yield return new WaitForSeconds(delay);
-        gameObject.SetActive(false);
+        gameManager.objectPooler.AddToPool("Bomb", gameObject.transform.parent.gameObject);
     }
 }
