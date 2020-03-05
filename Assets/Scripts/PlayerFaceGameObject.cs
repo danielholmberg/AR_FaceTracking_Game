@@ -8,6 +8,7 @@ public class PlayerFaceGameObject : MonoBehaviour
     private GameManager gameManager;
     public float toCloseDistance = 0.3f;
     private Color originalColor;
+    public float pointAlpha = 0.2f;
 
     void Start()
     {
@@ -29,31 +30,87 @@ public class PlayerFaceGameObject : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-        if(other.gameObject.CompareTag("Bullet")) 
-        {
+        AudioSource targetAudio = other.gameObject.GetComponent<AudioSource>();
+        Renderer targetRenderer = other.gameObject.GetComponent<Renderer>();
+
+        if(other.gameObject.CompareTag("OnePoint")) 
+        {   
+            OnePoint collidedObject = other.gameObject.GetComponent<OnePoint>();
             if(isToClose) 
             {
-                other.gameObject.GetComponent<Renderer>().material.color = Color.red;
-                gameManager.health--;
+                targetRenderer.material.color = Color.red;
             } 
             else
             {   
-                if(!other.gameObject.GetComponent<BulletMovement>().collided) 
+                if(!collidedObject.collided) 
                 {
-                    other.gameObject.GetComponent<Renderer>().material.color = Color.green;
-                    other.gameObject.GetComponent<AudioSource>().Play();
+                    targetAudio.Play();
                     ScoreScript.scoreValue++;
                 }
-            } 
+            }
 
             // Disable bullet collision 
-            other.gameObject.GetComponent<BulletMovement>().collided = true;
+            collidedObject.collided = true;
+            
+            Color tempColor = targetRenderer.material.color;
+            tempColor.a = pointAlpha;
+            targetRenderer.material.color = tempColor;
 
-            Destroy(other.gameObject, 1.0f);
+            StartCoroutine(collidedObject.DelayedRemove(0.5f));
         } 
+        else if(other.gameObject.CompareTag("TwoPoint")) 
+        {
+            TwoPoint collidedObject = other.gameObject.GetComponent<TwoPoint>();
+            if(isToClose) 
+            {
+                targetRenderer.material.color = Color.red;
+            } 
+            else
+            {   
+                if(!collidedObject.collided) 
+                {
+                    targetAudio.Play();
+                    ScoreScript.scoreValue+=2;
+                }
+            }
+
+            // Disable bullet collision 
+            collidedObject.GetComponent<TwoPoint>().collided = true;
+            
+            Color tempColor = targetRenderer.material.color;
+            tempColor.a = pointAlpha;
+            targetRenderer.material.color = tempColor;
+
+            StartCoroutine(collidedObject.DelayedRemove(0.5f));
+        }
+        else if(other.gameObject.CompareTag("FivePoint")) 
+        {
+            FivePoint collidedObject = other.gameObject.GetComponent<FivePoint>();
+            if(isToClose) 
+            {
+                targetRenderer.material.color = Color.red;
+            } 
+            else
+            {   
+                if(!collidedObject.collided) 
+                {
+                    targetAudio.Play();
+                    ScoreScript.scoreValue+=5;
+                }
+            }
+
+            // Disable bullet collision 
+            collidedObject.collided = true;
+
+            Color tempColor = targetRenderer.material.color;
+            tempColor.a = pointAlpha;
+            targetRenderer.material.color = tempColor;
+
+            StartCoroutine(collidedObject.DelayedRemove(0.5f));
+        }
         else if(other.gameObject.CompareTag("Bomb")) 
         {
-            other.gameObject.GetComponent<BombMovement>().collided = true;
+            other.gameObject.GetComponent<Bomb>().collided = true;
         }
     }
 }

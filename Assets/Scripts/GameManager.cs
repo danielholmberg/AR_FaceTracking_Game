@@ -8,25 +8,42 @@ public class GameManager : MonoBehaviour
 {
 
     public CountDownController countDownController;
+    public float restartDelay = 1f;
+    bool gameHasEnded = false;
+    ObjectPooler objectPooler;
+    BackgroundAudio backgroundAudio;
 
-    public GameObject bulletPrefab;
+    // Points
+    public GameObject onePointPrefab;
+    public GameObject twoPointPrefab;
+    public GameObject fivePointPrefab;
+    public float respawnOnePointTime = 2f;
+    public float respawnTwoPointTime = 5f;
+    public float respawnFivePointTime = 20f;
+    public bool shouldSpawnOnePoints = false;
+    public bool shouldSpawnTwoPoints = false;
+    public bool shouldSpawnFivePoints = false;
+
+    // Bomb
     public GameObject bombPrefab;
-    public float respawnBulletTime = 1f;
-    public float respawnBombTime = 4f;
-    public bool shouldSpawnBullets = false;
+    public float respawnBombTime = 10f;
     public bool shouldSpawnBombs = false;
     public bool incomingBomb = false;
 
-    public float restartDelay = 1f;
-    bool gameHasEnded = false;
+    // Health
     public int health = 5;
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    // Persistent Data
+    private string highscoreKey = "Highscore";
+
     private void Start() 
     {   
-        StartGame();    
+        objectPooler = ObjectPooler.Instance;
+        backgroundAudio = BackgroundAudio.Instance;
+        StartCoroutine(countDownController.CountDownToStart());   
     }
 
     private void Update() 
@@ -48,18 +65,39 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         gameHasEnded = false;
-        shouldSpawnBullets = true;
+        shouldSpawnOnePoints = true;
+        shouldSpawnTwoPoints = true;
+        shouldSpawnFivePoints = true;
         shouldSpawnBombs = true;
-        StartCoroutine(countDownController.CountDownToStart());
+        StartCoroutine(LaunchOnePointWave());
+        StartCoroutine(LaunchTwoPointWave());
+        StartCoroutine(LaunchFivePointWave());
+        StartCoroutine(LaunchBombWave());
     }
     public void EndGame() 
     {
         if(!gameHasEnded) 
         {
             gameHasEnded = true;
-            shouldSpawnBullets = false;
+
+            backgroundAudio.PlayEndAudio();
+
+            // Disable object respawn
+            shouldSpawnOnePoints = false;
+            shouldSpawnTwoPoints = false;
+            shouldSpawnFivePoints = false;
+            shouldSpawnBombs = false;
             Debug.Log("Game Over!");
 
+            // Set Highscore
+            if(PlayerPrefs.HasKey(highscoreKey)) {
+                if(PlayerPrefs.GetInt(highscoreKey) < ScoreScript.scoreValue) {
+                    PlayerPrefs.SetInt(highscoreKey, ScoreScript.scoreValue);
+                }
+            } else {
+                PlayerPrefs.SetInt(highscoreKey, ScoreScript.scoreValue);
+            }
+             
             // Show GameOverMenu
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
@@ -68,36 +106,73 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         ScoreScript.scoreValue = 0;
+        backgroundAudio.PlayBackgroundAudio();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
-    // Helper functions
-    private void SpawnBullet() 
+    // ---- Helper functions ----
+
+    // One Point
+    private void SpawnOnePoint() 
     {
-        GameObject a = Instantiate(bulletPrefab) as GameObject;
+        objectPooler.SpawnFromPool("OnePoint");
     }
 
-    public IEnumerator LaunchBulletWave() 
+    private IEnumerator LaunchOnePointWave() 
     {
-        while(shouldSpawnBullets) {
-            yield return new WaitForSeconds(respawnBulletTime);
+        while(shouldSpawnOnePoints) {
+            yield return new WaitForSeconds(respawnOnePointTime);
             if(!incomingBomb) {
-                SpawnBullet();
+                SpawnOnePoint();
+            }
+        }
+    }
+
+    // Two Points
+    private void SpawnTwoPoint() 
+    {
+        objectPooler.SpawnFromPool("TwoPoint");
+    }
+
+    private IEnumerator LaunchTwoPointWave() 
+    {
+        while(shouldSpawnTwoPoints) {
+            yield return new WaitForSeconds(respawnTwoPointTime);
+            if(!incomingBomb) {
+                SpawnTwoPoint();
+            }
+        }
+    }
+
+    // Five Points
+    private void SpawnFivePoint() 
+    {
+        objectPooler.SpawnFromPool("FivePoint");
+    }
+
+    private IEnumerator LaunchFivePointWave() 
+    {
+        while(shouldSpawnFivePoints) {
+            yield return new WaitForSeconds(respawnFivePointTime);
+            if(!incomingBomb) {
+                SpawnFivePoint();
             }
         }
     }
 
     private void SpawnBomb() 
     {
-        GameObject a = Instantiate(bombPrefab) as GameObject;
+        objectPooler.SpawnFromPool("Bomb");
         incomingBomb = true;
     }
 
-    public IEnumerator LaunchBombWave() 
+    private IEnumerator LaunchBombWave() 
     {
         while(shouldSpawnBombs) {
             yield return new WaitForSeconds(respawnBombTime);
-            SpawnBomb();
+            if(!incomingBomb) {
+                SpawnBomb();
+            }
         }
     }
 }

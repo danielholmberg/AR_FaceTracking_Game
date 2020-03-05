@@ -147,7 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8880642140703002587}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: FivePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,11 +182,11 @@ GameObject:
   - component: {fileID: 8880642141529345139}
   - component: {fileID: 8880642141529345138}
   - component: {fileID: 8880642141529345151}
-  - component: {fileID: 7479975782013738391}
+  - component: {fileID: 1544500906696146451}
   - component: {fileID: 6640000867862463649}
   m_Layer: 0
-  m_Name: BulletBody
-  m_TagString: Bullet
+  m_Name: Body
+  m_TagString: FivePoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,7 +231,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 48535325d6da74669b9021169cef89c6, type: 2}
+  - {fileID: 2100000, guid: b3d97cc539d56436c9268a6d97aec7f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,7 +281,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7479975782013738391
+--- !u!114 &1544500906696146451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,11 +290,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8880642141529345137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 040c66394747d4e919c74673a8243ca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 64825ccd472c541e6ad8b2030e1e7c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8880642141529345151}
-  speed: 10
+  renderer: {fileID: 8880642141529345139}
+  speed: 5
+  collided: 0
 --- !u!82 &6640000867862463649
 AudioSource:
   m_ObjectHideFlags: 0
@@ -305,10 +307,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5ac3c46be831c471aa35f58841a498c3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: dc6a6203b892b470cab2071f623c09a2, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.8
+  m_Pitch: 0.8
   Loop: 0
   Mute: 0
   Spatialize: 0

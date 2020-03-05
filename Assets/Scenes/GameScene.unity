@@ -634,6 +634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502f21d42ab02427bb6d15215df8d282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toCloseDistance: 0.3
+  pointAlpha: 0.2
 --- !u!1 &321281506
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 321281507}
   - component: {fileID: 321281508}
+  - component: {fileID: 321281509}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -678,15 +681,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countDownController: {fileID: 1120846841}
-  bulletPrefab: {fileID: 8880642140703002586, guid: f6e3f2e9aca1544a48debf279c332fd1,
+  restartDelay: 1
+  onePointPrefab: {fileID: 8880642140703002586, guid: f6e3f2e9aca1544a48debf279c332fd1,
     type: 3}
+  twoPointPrefab: {fileID: 8880642140703002586, guid: c0763de623c614558aa7281184f7b5d0,
+    type: 3}
+  fivePointPrefab: {fileID: 8880642140703002586, guid: 84279e61d7e03476895227a0d35ce4de,
+    type: 3}
+  respawnOnePointTime: 2
+  respawnTwoPointTime: 5
+  respawnFivePointTime: 20
+  shouldSpawnOnePoints: 0
+  shouldSpawnTwoPoints: 0
+  shouldSpawnFivePoints: 0
   bombPrefab: {fileID: 3488488082227849093, guid: b5c4ccdf0b1b44be8a1257004ed6f6a8,
     type: 3}
-  respawnBulletTime: 1
-  respawnBombTime: 4
-  shouldSpawnBullets: 0
+  respawnBombTime: 10
   shouldSpawnBombs: 0
-  restartDelay: 1
+  incomingBomb: 0
   health: 5
   hearts:
   - {fileID: 941068905}
@@ -696,6 +708,35 @@ MonoBehaviour:
   - {fileID: 558177468}
   fullHeart: {fileID: 21300000, guid: 763ac6b9a7d9c4ef6b0dd242dbd05787, type: 3}
   emptyHeart: {fileID: 21300000, guid: 140170671625d486992a2b3897f5e318, type: 3}
+--- !u!114 &321281509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321281506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2827f11e496d463f973967761d35a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pools:
+  - tag: OnePoint
+    prefab: {fileID: 8880642140703002586, guid: f6e3f2e9aca1544a48debf279c332fd1,
+      type: 3}
+    size: 10
+  - tag: TwoPoint
+    prefab: {fileID: 8880642140703002586, guid: c0763de623c614558aa7281184f7b5d0,
+      type: 3}
+    size: 10
+  - tag: FivePoint
+    prefab: {fileID: 8880642140703002586, guid: 84279e61d7e03476895227a0d35ce4de,
+      type: 3}
+    size: 10
+  - tag: Bomb
+    prefab: {fileID: 3488488082227849093, guid: b5c4ccdf0b1b44be8a1257004ed6f6a8,
+      type: 3}
+    size: 10
 --- !u!1 &525700677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,8 +1197,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1120846842}
   - component: {fileID: 1120846841}
+  - component: {fileID: 1120846843}
   m_Layer: 0
-  m_Name: CountDownHolder
+  m_Name: CountDownController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1177,6 +1219,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countDownTime: 3
   countDownText: {fileID: 532663968}
+  firstBeep: {fileID: 8300000, guid: 27d1123f0d27b49a59c7aa22e2cd8c2b, type: 3}
+  secondBeep: {fileID: 8300000, guid: 27d1123f0d27b49a59c7aa22e2cd8c2b, type: 3}
+  thirdBeep: {fileID: 8300000, guid: 27d1123f0d27b49a59c7aa22e2cd8c2b, type: 3}
+  endBeep: {fileID: 8300000, guid: c2916e11ed33e4034a054ddeca96fcc6, type: 3}
 --- !u!4 &1120846842
 Transform:
   m_ObjectHideFlags: 0
@@ -1191,6 +1237,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1120846843
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120846840}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: b75b738c5945d4d43bba298f3697aac4, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1577749883
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ PhysicMaterial:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BulletPhysicsMaterial
+  m_Name: PointPhysicsMaterial
   dynamicFriction: 0
   staticFriction: 0
   bounciness: 1
