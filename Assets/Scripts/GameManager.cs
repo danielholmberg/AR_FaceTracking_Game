@@ -39,11 +39,21 @@ public class GameManager : MonoBehaviour
     // Persistent Data
     private string highscoreKey = "Highscore";
 
+    // Coroutines
+    private IEnumerator launchOnePointWaveCoroutine;
+    private IEnumerator launchTwoPointWaveCoroutine;
+    private IEnumerator launchFivePointWaveCoroutine;
+    private IEnumerator launchBombWaveCoroutine;
+
     private void Start() 
     {   
         objectPooler = ObjectPooler.Instance;
         backgroundAudio = BackgroundAudio.Instance;
-        StartCoroutine(countDownController.CountDownToStart());   
+        StartCoroutine(countDownController.CountDownToStart());
+        launchOnePointWaveCoroutine = LaunchOnePointWave();
+        launchTwoPointWaveCoroutine = LaunchTwoPointWave();
+        launchFivePointWaveCoroutine = LaunchFivePointWave();
+        launchBombWaveCoroutine = LaunchBombWave();
     }
 
     private void Update() 
@@ -69,10 +79,10 @@ public class GameManager : MonoBehaviour
         shouldSpawnTwoPoints = true;
         shouldSpawnFivePoints = true;
         shouldSpawnBombs = true;
-        StartCoroutine(LaunchOnePointWave());
-        StartCoroutine(LaunchTwoPointWave());
-        StartCoroutine(LaunchFivePointWave());
-        StartCoroutine(LaunchBombWave());
+        StartCoroutine(launchOnePointWaveCoroutine);
+        StartCoroutine(launchTwoPointWaveCoroutine);
+        StartCoroutine(launchFivePointWaveCoroutine);
+        StartCoroutine(launchBombWaveCoroutine);
     }
     public void EndGame() 
     {
@@ -87,6 +97,10 @@ public class GameManager : MonoBehaviour
             shouldSpawnTwoPoints = false;
             shouldSpawnFivePoints = false;
             shouldSpawnBombs = false;
+            StopCoroutine(launchOnePointWaveCoroutine);
+            StopCoroutine(launchTwoPointWaveCoroutine);
+            StopCoroutine(launchFivePointWaveCoroutine);
+            StopCoroutine(launchBombWaveCoroutine);
             Debug.Log("Game Over!");
 
             // Set Highscore

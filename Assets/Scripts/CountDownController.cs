@@ -17,7 +17,11 @@ public class CountDownController : MonoBehaviour
     {
         AudioSource audio = gameObject.GetComponent<AudioSource>();
 
-        yield return new WaitForSeconds(0.5f);
+        countDownText.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+        
+        countDownText.gameObject.SetActive(true);
 
         while(countDownTime > 0) {
             countDownText.text = countDownTime.ToString();
