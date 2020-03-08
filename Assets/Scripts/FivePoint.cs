@@ -8,6 +8,8 @@ public class FivePoint : MonoBehaviour, IPooledObject
     public Rigidbody rb;
     public Renderer renderer;
     public float speed = 5f;
+    public float spawnRadius = 0.1f;
+    public float spawnDepth = 0.4f;
     public bool collided = false;
     private GameManager gameManager;
     private Rigidbody playerRigidbody;
@@ -26,7 +28,7 @@ public class FivePoint : MonoBehaviour, IPooledObject
         Debug.Log("OnObjectSpawn FivePoint");
         collided = false;
         renderer.material = originalMaterial;
-        rb.transform.position = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), -0.2f);
+        rb.transform.position = new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(-spawnRadius, spawnRadius), -spawnDepth);
         rb.velocity = new Vector3(0, 0, speed * Time.deltaTime);
         rb.angularVelocity = rb.transform.up * speed;
     }

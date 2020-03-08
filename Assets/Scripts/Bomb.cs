@@ -8,6 +8,8 @@ public class Bomb : MonoBehaviour, IPooledObject
     public Renderer renderer;
     public MeshCollider collider;
     public float speed;
+    public float spawnRadius = 0.1f;
+    public float spawnDepth = 0.4f;
     public bool collided = false;
     public GameObject explosionPrefab;
     private GameManager gameManager;
@@ -30,7 +32,7 @@ public class Bomb : MonoBehaviour, IPooledObject
         renderer.material = originalMaterial;
         collider.enabled = true;
         GameManager.incomingBomb = true;
-        rb.transform.position = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), -0.2f);
+        rb.transform.position = new Vector3(Random.Range(-spawnRadius, spawnRadius), Random.Range(-spawnRadius, spawnRadius), -spawnDepth);
         rb.velocity = new Vector3(0, 0, speed * Time.deltaTime);
         rb.angularVelocity = rb.transform.up * speed;
     }
