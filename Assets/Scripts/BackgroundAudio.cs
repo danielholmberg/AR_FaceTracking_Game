@@ -30,4 +30,14 @@ public class BackgroundAudio : MonoBehaviour
         audioSource.Stop();
         audioSource.Play();
     }
+
+    public void Pause() 
+    {
+        audioSource.Pause();
+    }
+
+    public void UnPause()
+    {
+        audioSource.UnPause();
+    }
 }

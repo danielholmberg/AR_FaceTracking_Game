@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     BackgroundAudio backgroundAudio;
     private List<AugmentedFace> m_TempAugmentedFaces = new List<AugmentedFace>();
     public bool faceDetected = false;
+    public GameObject pausePanel;
 
     // Points
     public GameObject onePointPrefab;
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     private void Start() 
     {   
+        pausePanel.SetActive(false);
         objectPooler = ObjectPooler.Instance;
         backgroundAudio = BackgroundAudio.Instance;
         StartCoroutine(countDownController.CountDownToStart());
@@ -105,10 +107,14 @@ public class GameManager : MonoBehaviour
     public void PauseGame() 
     {
         Time.timeScale = 0;
+        pausePanel.SetActive(true);
+        backgroundAudio.Pause();
     }
 
     public void ResumeGame()
     {
+        backgroundAudio.UnPause();
+        pausePanel.SetActive(false);
         Time.timeScale = 1;
     }
 
