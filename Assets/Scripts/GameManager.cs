@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using GoogleARCore;
 
 public class GameManager : MonoBehaviour
 {
 
     public CountDownController countDownController;
     public float restartDelay = 1f;
-    bool gameHasEnded = false;
+    bool gameHasStarted = false;
     public ObjectPooler objectPooler;
     BackgroundAudio backgroundAudio;
+    private List<AugmentedFace> m_TempAugmentedFaces = new List<AugmentedFace>();
+    public bool faceDetected = false;
 
     // Points
     public GameObject onePointPrefab;
@@ -69,12 +72,26 @@ public class GameManager : MonoBehaviour
         if(health == 0) 
         {
             EndGame();
-        }    
+        }  
+
+        if(gameHasStarted) {
+            // Gets all Augmented Faces.
+            Session.GetTrackables<AugmentedFace>(m_TempAugmentedFaces, TrackableQueryFilter.All);
+
+            if(m_TempAugmentedFaces.Count == 0) {
+                Debug.Log("No face detected!");
+                faceDetected = false;
+                PauseGame();
+            } else {
+                faceDetected = true;
+                ResumeGame();
+            }
+        }
     }
 
     public void StartGame()
     {
-        gameHasEnded = false;
+        gameHasStarted = true;
         shouldSpawnOnePoints = true;
         shouldSpawnTwoPoints = true;
         shouldSpawnFivePoints = true;
@@ -84,11 +101,22 @@ public class GameManager : MonoBehaviour
         StartCoroutine(launchFivePointWaveCoroutine);
         StartCoroutine(launchBombWaveCoroutine);
     }
+
+    public void PauseGame() 
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+
     public void EndGame() 
     {
-        if(!gameHasEnded) 
+        if(gameHasStarted) 
         {
-            gameHasEnded = true;
+            gameHasStarted = false;
 
             backgroundAudio.PlayEndAudio();
 

@@ -36,9 +36,11 @@ public class FivePoint : MonoBehaviour, IPooledObject
     // Update is called once per frame
     void Update()
     {   
-        if(!collided && (transform.position.z > playerRigidbody.transform.position.z + 0.2f)) {
-            renderer.material.color = Color.red;
-            StartCoroutine(DelayedRemove(1f));
+        if(gameManager.faceDetected) {
+            if(!collided && (transform.position.z > playerRigidbody.transform.position.z + 0.2f)) {
+                renderer.material.color = Color.red;
+                StartCoroutine(DelayedRemove(1f));
+            }
         }
     }
 

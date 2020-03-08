@@ -40,19 +40,21 @@ public class Bomb : MonoBehaviour, IPooledObject
     // Update is called once per frame
     void Update()
     {
-        if(collided) {
-            gameManager.health--;
-            GameManager.incomingBomb = false;
-            gameManager.objectPooler.AddToPool("Bomb", gameObject.transform.parent.gameObject);
-            GameObject a = Instantiate(explosionPrefab) as GameObject;
-            a.transform.position = transform.position;
-        } else if(transform.position.z > playerRigidbody.transform.position.z) {
-            collider.enabled = false;
-            renderer.material.color = Color.green;
-            GameManager.incomingBomb = false;
+        if(gameManager.faceDetected) {
+            if(collided) {
+                gameManager.health--;
+                GameManager.incomingBomb = false;
+                gameManager.objectPooler.AddToPool("Bomb", gameObject.transform.parent.gameObject);
+                GameObject a = Instantiate(explosionPrefab) as GameObject;
+                a.transform.position = transform.position;
+            } else if(transform.position.z > playerRigidbody.transform.position.z) {
+                collider.enabled = false;
+                renderer.material.color = Color.green;
+                GameManager.incomingBomb = false;
 
-            if(transform.position.z > playerRigidbody.transform.position.z + 0.5f) {
-                StartCoroutine(DelayedRemove(1f));
+                if(transform.position.z > playerRigidbody.transform.position.z + 0.5f) {
+                    StartCoroutine(DelayedRemove(1f));
+                }
             }
         }
     }

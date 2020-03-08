@@ -36,7 +36,7 @@ public class PlayerFaceGameObject : MonoBehaviour
         if(other.gameObject.CompareTag("OnePoint")) 
         {   
             OnePoint collidedObject = other.gameObject.GetComponent<OnePoint>();
-            if(isToClose) 
+            if(gameManager.faceDetected && isToClose) 
             {
                 targetRenderer.material.color = Color.red;
             } 
@@ -61,7 +61,7 @@ public class PlayerFaceGameObject : MonoBehaviour
         else if(other.gameObject.CompareTag("TwoPoint")) 
         {
             TwoPoint collidedObject = other.gameObject.GetComponent<TwoPoint>();
-            if(isToClose) 
+            if(gameManager.faceDetected && isToClose) 
             {
                 targetRenderer.material.color = Color.red;
             } 
@@ -86,7 +86,7 @@ public class PlayerFaceGameObject : MonoBehaviour
         else if(other.gameObject.CompareTag("FivePoint")) 
         {
             FivePoint collidedObject = other.gameObject.GetComponent<FivePoint>();
-            if(isToClose) 
+            if(gameManager.faceDetected && isToClose) 
             {
                 targetRenderer.material.color = Color.red;
             } 
