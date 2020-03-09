@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOverMenuScript : MonoBehaviour
 {
     public void RestartGame() 
     {
-        FindObjectOfType<GameManager>().RestartGame();
+
+        BackgroundAudio.Instance.PlayBackgroundAudio();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     public void QuitGame() 

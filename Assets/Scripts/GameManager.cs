@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
 
     private void Start() 
     {   
+        ScoreScript.scoreValue = 0;
+        health = 5;
         pausePanel.SetActive(false);
         objectPooler = ObjectPooler.Instance;
         backgroundAudio = BackgroundAudio.Instance;
@@ -63,20 +65,20 @@ public class GameManager : MonoBehaviour
 
     private void Update() 
     {  
-        for(int i = 0; i < hearts.Length; i++) {
-            if(i < health) {
-                hearts[i].sprite = fullHeart;
-            } else {
-                hearts[i].sprite = emptyHeart;
-            }
-        }
-
-        if(health == 0) 
-        {
-            EndGame();
-        }  
-
         if(gameHasStarted) {
+            for(int i = 0; i < hearts.Length; i++) {
+                if(i < health) {
+                    hearts[i].sprite = fullHeart;
+                } else {
+                    hearts[i].sprite = emptyHeart;
+                }
+            }
+
+            if(health == 0) 
+            {
+                EndGame();
+            }  
+
             // Gets all Augmented Faces.
             Session.GetTrackables<AugmentedFace>(m_TempAugmentedFaces, TrackableQueryFilter.All);
 
@@ -149,13 +151,6 @@ public class GameManager : MonoBehaviour
             // Show GameOverMenu
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
-    }
-
-    public void RestartGame()
-    {
-        ScoreScript.scoreValue = 0;
-        backgroundAudio.PlayBackgroundAudio();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     // ---- Helper functions ----
